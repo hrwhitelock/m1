@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<math.h>
 #include"pi.h"
+#include"timer.h"
 
 static double tol = 10e-06; 
 void loopLeibniz( void);
@@ -31,11 +32,13 @@ void loopBBP( void){
         }
         while (abserr > tol);
 }
-void timeBBP(void);
-void timeBBP(void){
+void timeLiebniz(void);
+void timeLiebniz(void){
 	int count = 1000;
 	double time; 
-	double time1; 
+	double time1;
+	double tmin = 1.;
+	double tmax = 2.; 
 	
 	do
 	{
@@ -51,6 +54,7 @@ void timeBBP(void){
 }
 
 int main(void){
-	loopLeibniz(); 
-	loopBBP();
+	//loopLeibniz(); 
+	//loopBBP();
+	timeLiebniz();
 }

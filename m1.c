@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include<math.h>
-#include"pi.h"
-#include"timer.h"
+#include"pi.c"
+#include"timer.c"
+#include"adjust.c"
 
 static double tol = 10e-06; 
 void loopLeibniz( void);
@@ -12,7 +13,7 @@ void loopLeibniz( void){
 	do{
 		pi = piLeibniz (i);
 		abserr = fabs (pi - M_PI);
-		printf ("%8d %20.15f %20.15f\n", i, pi, abserr);
+	//	printf ("%8d %20.15f %20.15f\n", i, pi, abserr);
 		i *= 2;
 	}
 	while (abserr > tol);
@@ -27,7 +28,7 @@ void loopBBP( void){
         do{
                 pi = piBBP (i);
                 abserr = fabs (pi - M_PI);
-                printf ("%8d %20.15f %20.15f\n", i, pi, abserr);
+//                printf ("%8d %20.15f %20.15f\n", i, pi, abserr);
                 i *= 2;
         }
         while (abserr > tol);
@@ -43,7 +44,9 @@ void timeLiebniz(void){
 	do
 	{
 		timer_start ();
-			loopLiebniz();
+		for (int i = 0; i <count; i++){
+			loopLeibniz();
+		}
 		time = timer_stop ();
 		time1 = time / count;
 		printf (" %10.2f usec %10.6f sec %10d\n",
@@ -52,9 +55,32 @@ void timeLiebniz(void){
 	}
 	while ((time > tmax) || (time < tmin));
 }
+void timeBBP(void);
+void timeBBP(void){
+        int count1 = 1000;
+        double time;
+        double time1;
+        double tmin = 1.;
+        double tmax = 2.;
+
+        do
+        {
+                timer_start ();
+                for (int i = 0; i <count1; i++){
+                        loopBBP();
+                }
+                time = timer_stop ();
+                time1 = time / count1;
+                printf (" %10.2f usec %10.6f sec %10d\n",
+                time1 * 1.e6, time, count1);
+                count1 = adjust_rep_count (count1, time, tmin, tmax);
+        }
+        while ((time > tmax) || (time < tmin));
+}
 
 int main(void){
-	//loopLeibniz(); 
-	//loopBBP();
 	timeLiebniz();
+	timeBBP();
+//	printf("%f\n", piBBP(1000));
+	//loopBBP();
 }

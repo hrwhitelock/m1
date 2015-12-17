@@ -1,5 +1,3 @@
-//#ifndef PI
-//#define PI
 #include<stdio.h>
 #include<math.h>
 #include"pi.h"
@@ -29,7 +27,6 @@ double piBBP(int n){
 	}
 	return sum; 
 }
-//#endif //PI
 
 
 

@@ -1,12 +1,14 @@
 #include<stdio.h>
 #include<math.h>
-#include"pi.c"
-#include"timer.c"
+#include"pi.c"	
+#include"timer.c" 
 #include"adjust.c"
 
 static double tol = 10e-06; 
 void loopLeibniz( void);
 void loopLeibniz( void){
+	//loops through leibniz until the error is
+	//below the tolerance
 	int i = 1;
 	double pi; 
 	double abserr; 
@@ -22,6 +24,8 @@ void loopLeibniz( void){
 
 void loopBBP( void);
 void loopBBP( void){
+	//loops through BBP until error
+	//is below tolerance
         int i = 1;
         double pi;
         double abserr;
@@ -35,6 +39,7 @@ void loopBBP( void){
 }
 void timeLiebniz(void);
 void timeLiebniz(void){
+	//timing for Liebniz
 	int count = 1000;
 	double time; 
 	double time1;
@@ -57,6 +62,7 @@ void timeLiebniz(void){
 }
 void timeBBP(void);
 void timeBBP(void){
+	//implementatin of a timing function for BBP
         int count1 = 1000;
         double time;
         double time1;
@@ -81,6 +87,4 @@ void timeBBP(void){
 int main(void){
 	timeLiebniz();
 	timeBBP();
-//	printf("%f\n", piBBP(1000));
-	//loopBBP();
 }
